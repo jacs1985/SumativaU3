@@ -1,0 +1,145 @@
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-md-6">
+        <form id="EnvioForms" [formGroup]="formularioEnvio">
+            <h5  class="text-center" >Ingrese dirección de envio</h5>
+            <hr>
+            <div class="form-group pb-1 row">
+                <div class="col-md-9">
+                    <label class="control-label pb-1"  >Dirección <span style="color: red;">*</span></label>
+                    <input type="text"   placeholder="Ingrese dirección" class="form-control" required autofocus="autofocus" formControlName="direccion"/>
+                    <span style="color: red;">{{alertDireccion}}</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label pb-1"  >Numero<span style="color: red;">*</span></label>
+                    <input type="number"  placeholder="N°" class="form-control" required autofocus="autofocus" formControlName="numero"/>
+                    <span style="color: red;">{{alertNumero}}</span>
+                </div>
+            </div>
+            <div class="form-group pb-1">
+                <label class="control-label pb-1"  >Block /Piso /Oficina /Depto</label>
+                <input type="text"  placeholder="Descripcion de la direccion(ej; depto, torre)" class="form-control" required autofocus="autofocus" formControlName="descDireccion"/> 
+            </div>
+            <div class="form-group pb-1">
+                <label class="control-label pb-1"  >Email<span style="color: red;">*</span></label>
+                <input type="text"  placeholder="Correo electronico" class="form-control" required autofocus="autofocus" formControlName="email"/> 
+                <span  style="color: red;">{{alertEmail}}</span>
+
+            </div>
+            <div class="form-group pb-1 row">
+                <div class="col-md-6">
+                    <label for="inputState">País <span style="color: red;">*</span></label>
+                    <select  class="form-control" formControlName="pais">
+                      <option selected disabled>Seleccionar</option>
+                      <option> Chile</option>
+                    </select>
+                    <span style="color: red;">{{alertPais}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label pb-1" >Codigo postal</label>
+                    <input type="number"   placeholder="CP" class="form-control" required autofocus="autofocus" formControlName="codigoPostal"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label class="control-label pb-1" for="inputState">Región<span style="color: red;">*</span></label>
+                    <select  class="form-control" formControlName="region" (ngModelChange)="selectRegion($event)">
+                        <option selected disabled>Seleccionar</option>
+                        <option *ngFor="let region of regionesComunas">{{region.region}}</option>
+                    </select>
+                    <span style="color: red;">{{alertRegion}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label pb-1" for="inputState">Ciudad<span style="color: red;">*</span></label>
+                    <select  class="form-control" formControlName="ciudad">
+                        <option selected disabled>Seleccionar</option>
+                        <option *ngFor="let ciudad of comunas">{{ciudad}}</option>
+                    </select>
+                    <span style="color: red;">{{alertCiudad}}</span>
+                </div>
+            </div>
+            <div class="form-group pb-1">
+                <label class="control-label pb-1" >Referencia de dirección</label>
+                <input type="text"   placeholder="Referencia (ej: calle 3 con toledo)" class="form-control" required autofocus="autofocus" formControlName="referenciaDireccion"/>
+            </div>
+            <div class="form-group pb-1 row">
+                <div class="col-md-6">
+                    <label class="control-label pb-1"  >Quien recibe <span style="color: red;">*</span></label>
+                    <input type="text"   placeholder="Ingrese Nombre" class="form-control" required autofocus="autofocus" formControlName="quienRecibe"/>
+                    <span style="color: red;">{{alertQuienRecibe}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label pb-1"  >Telefono<span style="color: red;">*</span></label>
+                    <input type="number"  placeholder="Ej. 977777777" class="form-control" required autofocus="autofocus" formControlName="telefonoContacto"/>
+                    <span style="color: red;">{{alertTelefonoContacto}}</span>
+                </div>
+            </div>
+        </form>
+       </div>
+
+       <div class="col-md-6">
+        <form [formGroup]="formularioVenta" >
+            <h5 class="text-center" >Datos de comprador</h5>
+        <hr>
+        <h6 class="text-center" >Ingresa los datos de tu tarjeta</h6>
+           <p><strong>Tipo de Tarjeta <span style="color: red;">*</span></strong></p>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="inlineRadio1">Tarjeta de Credito</label>
+                <input class="form-check-input" type="radio" name="tipoTarjeta" id="inlineRadio1" value="Credito" formControlName="tipoTarjeta">
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="inlineRadio2">Tarjeta de Debito</label>
+                <input class="form-check-input" type="radio" name="tipoTarjeta" id="inlineRadio2" value="Debito" formControlName="tipoTarjeta">              
+            </div>
+            <span style="color: red;">{{alertTipoTarjeta}}</span>
+            <br>
+
+            <div class="form-group pb-1 row">
+                <div class="col">
+                    <label class="control-label pb-1" >Nombres<span style="color: red;">*</span></label>
+                    <input type="text"  placeholder="Ingrese sus nombres" class="form-control" required autofocus="autofocus" formControlName="nombres"/>
+                    <span style="color: red;">{{alertNombres}}</span>
+                </div>
+                
+                <div class="col">
+                    <label class="control-label pb-1" >Apellidos <span style="color: red;">*</span></label>
+                    <input type="text"  placeholder="Ingrese sus apellidos" class="form-control" required autofocus="autofocus" formControlName="apellidos"/>
+                    <span style="color: red;">{{alertApellidos}}</span>
+                </div>
+            </div>
+            <div class="form-group pb-1 row">
+                <div class="col-md-6">
+                    <label class="control-label pb-1" >Numero de Tarjeta <span style="color: red;">*</span></label>
+                    <input type="text"  placeholder="XXXX-XXXX-XXXX-XXXX" class="form-control" required autofocus="autofocus" formControlName="numeroTarjeta"/>
+                    <span style="color: red;">{{alertNumeroTarjeta}}</span>
+                </div>
+                
+                <div class="col-md-4">
+                    <label class="control-label pb-1"  >Codigo de seguridad <span style="color: red;">*</span></label>
+                    <input type="text"  placeholder="XXX" class="form-control" required autofocus="autofocus" formControlName="codigoSeguridad"/>
+                    <span style="color: red;">{{alertCodigoSeguridad}}</span>
+                </div>
+                
+            </div>
+            <div class="form-group pb-1 row">
+                <div class="col-md-3">
+                    <label class="control-label pb-1"  >Mes Expiración <span style="color: red;">*</span></label>
+                    <input type="number"  placeholder="XX" class="form-control" required autofocus="autofocus" formControlName="mesExpira"/>
+                    <span style="color: red;">{{alertMesExpira}}</span>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label pb-1"  >Año Expiración <span style="color: red;">*</span></label>
+                    <input type="number"  placeholder="XX" class="form-control" required autofocus="autofocus" formControlName="añoExpira"/>
+                    <span style="color: red;">{{alertAnoExpira}}</span>
+                </div>
+            </div>
+            <div class="form-group pb-1">
+                <div class="row pt-3 mx-0">
+                    <button type="submit" (click)="validacionDirecTarjeta()"  class="btn btn-primary btn-block">Pagar</button>
+                </div>  
+            </div>
+        </form>
+       </div>
+    </div>
+</div>
+
